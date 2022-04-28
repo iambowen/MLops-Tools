@@ -157,13 +157,16 @@ spec:
                     artifacts:
                     - name: model-saved
                       path: /mnist-example/ckpt
-                      gcs:
+                      s3:
+                        endpoint: obs.cn-north-4.myhuaweicloud.com
                         bucket: mlops-example-bucket
                         key: mnist-example-models-demo
-                        serviceAccountKeySecret:
+                        accessKeySecret:
                           name: mlops-bucket-serviceaccount
-                          key: serviceAccountKey
-
+                          key: accessKey
+                        secretKeySecret:
+                          name: mlops-bucket-serviceaccount
+                          key: secretKey
                 - name: eval
                   inputs:
                     parameters:

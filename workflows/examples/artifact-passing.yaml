@@ -27,13 +27,16 @@ spec:
       artifacts:
       - name: hello-art
         path: /tmp/hello_world.txt
-        gcs:
+        s3:
+          endpoint: obs.cn-north-4.myhuaweicloud.com
           bucket: mlops-example-bucket
           key: tmp-cache
-          serviceAccountKeySecret:
+          accessKeySecret:
             name: mlops-bucket-serviceaccount
-            key: serviceAccountKey
-
+            key: accessKey
+          secretKeySecret:
+            name: mlops-bucket-serviceaccount
+            key: secretKey
   - name: print-message
     inputs:
       artifacts:

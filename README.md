@@ -28,6 +28,7 @@ To run Argo workflows that use artifacts, such as `Mnist` we are running, you mu
     $ kubectl create ns mnist-demo
     # Create secret for GCS used by Mnist workflows
     $ kubectl create secret generic mlops-bucket-serviceaccount --from-file=serviceAccountKey=<YOUR-SERVICE-ACCOUNT-KEY-file> -n mnist-demo
+    $ kubectl -n mnist-demo  create secret generic mlops-bucket-serviceaccount --from-literal=accessKey="a" --from-literal=secretKey="b"
     ```
 
 ### **Create Service Account for Argo Workflows**
@@ -37,7 +38,8 @@ To access cluster resources, such as pods and workflows contronller, you should 
 $ kubectl create -f workflows/create-serviceaccounts.yaml -n mnist-demo
 ```
 
-### **Build Images**
+### **Build Images(Optional)**
+If you just want to experience the whole process, just use the default image instead building by yourself.
 All scripts used for Mnist model training and evaling are in the `mnist/` folder, use `docker build` command to build and tag the image:
 
 ```bash
@@ -56,7 +58,7 @@ $ docker push $DOCKER_REGISTRY/$MY_ORG/mnist-serving:$TAG
 Feel free to choose your favorite docker registry(dockerhub, huaweicloud swr...) and create the organization. You may need to login the registry before pushing.
 
 
-### **Replace the image values**
+### **Replace the image values(Optional)**
 After building and pushing the images, specify the image url in the corresponding yaml file, `mnist-train-eval.yaml` in this demo.
 
 ```bash 

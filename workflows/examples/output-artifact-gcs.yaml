@@ -18,22 +18,13 @@ spec:
       artifacts:
         - name: message
           path: /tmp
-          gcs:
+          s3:
+            endpoint: obs.cn-north-4.myhuaweicloud.com
             bucket: mlops-example-bucket
-            # NOTE: by default, output artifacts are automatically tarred and gzipped before saving.
-            # As a best practice, .tgz or .tar.gz should be suffixed into the key name so the
-            # resulting object has an accurate file extension and mime-type. If archive is set to
-            # 'none', then preserve the appropriate file extension for the key name
             key: hello_world
-            
-            # serviceAccountKeySecret is a secret selector.
-            # It references the k8s secret named 'my-gcs-credentials'.
-            # This secret is expected to have have the key 'serviceAccountKey',
-            # containing the base64 encoded Google Cloud Service Account Key (json)
-            # to the bucket.
-            #
-            # If it's running on GKE, and Workload Identity is used,
-            # serviceAccountKeySecret is not needed.
-            serviceAccountKeySecret:
+            accessKeySecret:
               name: mlops-bucket-serviceaccount
-              key: serviceAccountKey
+              key: accessKey
+            secretKeySecret:
+              name: mlops-bucket-serviceaccount
+              key: secretKey

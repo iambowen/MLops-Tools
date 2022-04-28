@@ -52,8 +52,7 @@ spec:
   ports:
   - port: 12000
     targetPort: 12000
-    nodePort: 9100
     protocol: TCP
-  type: NodePort
+  type: LoadBalancer
   selector:
     eventsource-name: webhook
